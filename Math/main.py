@@ -1,13 +1,9 @@
-import threading
-from ctypes import wstring_at
 import json
 import time
 import websockets
-import time
 from cle import Cle
 from config import Config
 from tag import Tag
-import socket
 import numpy as np
 import asyncio
 
@@ -28,7 +24,7 @@ async  def process_TX(msg, cle, ws):
                 data2send = get_anchor_info(anchor)
                 print('Process_TX data2send ', data2send)
                 print("")
-                await ws.send(json.dumps({'action':'SendToUserPOHUY','data':data2send,'apikey':apikey, 'organization': cle.organization}))
+                await ws.send(json.dumps({'action':'SendToUserAnchorInfo','data':data2send,'apikey':apikey, 'organization': cle.organization}))
                 anchor.data2sendflag = 0
 
 async  def process_RX(msg, cle, ws):
@@ -39,7 +35,7 @@ async  def process_RX(msg, cle, ws):
                     data2send = get_anchor_info(anchor)
                     print('Process_RX data2send ', data2send)
                     print("")
-                    await ws.send(json.dumps({'action':'SendToUserPOHUY','data':data2send,'apikey':apikey, 'organization': cle.organization}))
+                    await ws.send(json.dumps({'action':'SendToUserAnchorInfo','data':data2send,'apikey':apikey, 'organization': cle.organization}))
                     anchor.data2sendflag = 0
                 break
 
@@ -57,14 +53,14 @@ async  def process_BLINK(msg, cle, ws):
                     anchor.add_master_ref_tag(msg)
                     if anchor.data2sendflag:
                         data2send = get_anchor_info(anchor)
-                        await ws.send(json.dumps({'action':'SendToUserPOHUY','data':data2send,'apikey':apikey, 'organization': cle.organization}))
+                        await ws.send(json.dumps({'action':'SendToUserAnchorInfo','data':data2send,'apikey':apikey, 'organization': cle.organization}))
                         anchor.data2sendflag = 0
             for anchor in cle.anchors:
                 if msg["data"]["receiver"] == anchor.ID:
                     anchor.add_slave_ref_tag(msg)
                     if anchor.data2sendflag:
                         data2send = get_anchor_info(anchor)
-                        await ws.send(json.dumps({'action':'SendToUserPOHUY','data':data2send,'apikey':apikey, 'organization': cle.organization}))
+                        await ws.send(json.dumps({'action':'SendToUserAnchorInfo','data':data2send,'apikey':apikey, 'organization': cle.organization}))
                         anchor.data2sendflag = 0
                     break
             return
