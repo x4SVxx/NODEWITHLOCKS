@@ -40,6 +40,7 @@ func main() {
 
 		login_flag = true
 		SetConfig(map[string]interface{}{"anchors": anchors_reader, "rf_config": rf_config_reader})
+		time.Sleep(2 * time.Second)
 		StartSpam()
 
 		for {

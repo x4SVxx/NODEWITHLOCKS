@@ -5,7 +5,6 @@ import (
 	"NODE/ReportsAndMessages"
 	"NODE/ServerForMath"
 	"encoding/json"
-	"fmt"
 	"net"
 	"time"
 
@@ -226,7 +225,6 @@ func Connect(anchor *anchor_struct, server_connection *websocket.Conn) {
 		}
 	}()
 	anchor_connection, err := net.Dial("tcp", anchor.ip+":"+"3000")
-	fmt.Println(anchor_connection)
 	if err != nil {
 		Logger.Logger("ERROR : AnchorConnect", err)
 		if server_connection != nil {

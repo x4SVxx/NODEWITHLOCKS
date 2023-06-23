@@ -27,7 +27,7 @@
       "ip": "192.168.99.11",
       "number": 3,
       "masternumber": 1,
-      "role": "slave",
+      "role": "Slave",
       "lag": 3000,
       "adrx": 16492,
       "adtx": 16492,
